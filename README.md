@@ -49,6 +49,7 @@ powershell "$s=(New-Object -COM WScript.Shell).CreateShortcut('C:\Users\Public\D
 
 ```
 MD C:\Karisma
+if not exist "C:\Karisma\Console\Synapse" MD "C:\Karisma\Console\Synapse"
 ```
 > Copy the app files over
 ```
@@ -68,12 +69,11 @@ powershell "$s=(New-Object -COM WScript.Shell).CreateShortcut('C:\Users\Public\D
 After installing you should log into Karisma to (1) **assign workstation license**, (2) download other files and (3) install **SpeechMagic**.
 
 ## SYNAPSE DESKTOP AGENT ##
-Currently waiting for Fuji to confirm best practice deployment.
-
 MSI can manually be downloaded from (must use Edge in IE mode):
 	[http://rmh-synapse/ex](http://rmh-synapse/ex)
+
 ``` 
-start "" SynapseWorkstationEx.msi
+"\\mhkarisma\Startup Scripts\PACS Install\PRODSynapseDA_5_7_250.msi"
 ```
 
 
