@@ -1,7 +1,12 @@
 # CLEAN REPORTING WORKSTATION #
 > [!TIP]
-> Below are commands when in Command Prompt
-> You should start an elevated Prompt using a local admin account
+> Below are commands when in **Command Prompt**
+> 
+> You should start an elevated Prompt using a local admin account.
+> 
+> You may start long processes in a different thread so you can continue without needing to wait for that process to finish by using `start ""` before your commands.
+> 
+> Example: `start "" "\\mhkarisma\Startup Scripts\SyngoVia\syngo.via.Client.Setup@172.28.42.103.exe"`
 
 ## NVIDIA DRIVERS ##
 > [!WARNING]
@@ -18,7 +23,7 @@
 
 > Install
 ```
-start "" ChromeSetup.exe
+ChromeSetup.exe
 ```
 
 > Shortcut to Radiology Intranet site in Chrome
@@ -79,11 +84,11 @@ powershell "$s=(New-Object -COM WScript.Shell).CreateShortcut('C:\ProgramData\Mi
 ## SYNGO VIA ##
 > Must start the client installer first
 ```
-start "" "\\mhkarisma\Startup Scripts\SyngoVia\syngo.via.Client.Setup@172.28.42.103.exe"
+"\\mhkarisma\Startup Scripts\SyngoVia\syngo.via.Client.Setup@172.28.42.103.exe"
 ```
 > Then install the Enterprise Browser
 ```
-start "" "\\mhkarisma\Startup Scripts\SyngoVia\rmhradentcon.ssg.org.au.msi"
+"\\mhkarisma\Startup Scripts\SyngoVia\rmhradentcon.ssg.org.au.msi"
 ```
 > Clean up the icons on the desktop (delete unused ones leaving only Enterprise Browser)
 ```
@@ -98,7 +103,7 @@ COPY "\\mhkarisma\Startup Scripts\SyngoVia\syngo.via Enterprise Browser.lnk" "C:
 ## DOTNET RUNTIME ##
 This is required for certain tools to work such as PACSMenu and the popup for unreported studies
 ```
-start "" "\\mhkarisma\Startup Scripts\DotNet\windowsdesktop-runtime-6.0.28-win-x64.exe" /install /quiet /norestart
+"\\mhkarisma\Startup Scripts\DotNet\windowsdesktop-runtime-6.0.28-win-x64.exe" /install /quiet /norestart
 ```
 
 ## PACSMENU ##
@@ -114,10 +119,17 @@ icacls "C:\PACSMenu" /grant:r "Users:(OI)(CI)(F)"
 ## DRAGON ##
 > Run the installer remotely
 ```
-start "" "\\mhkarisma\Startup Scripts\Dragon\setup.exe"
+"\\mhkarisma\Startup Scripts\Dragon\setup.exe"
 ```
 > License key
 ```
 more "\\mhkarisma\Startup Scripts\Dragon\Serial Number.txt"
 ```
+## TEAMS ##
+> The bootstrapper will download the latest version for all users
+```
+"\\mhkarisma\Startup Scripts\Teams\teamsbootstrapper.exe" -p
+```
+> A successful install will show this message:
 
+![successful install screenshot](https://learn.microsoft.com/en-us/microsoftteams/media/new-teams-direct-deploy-cmd-feedback.png)
