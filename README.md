@@ -1,50 +1,92 @@
 # CLEAN REPORTING WORKSTATION #
-Best to start a new CMD with elevated privileges for
+> [!TIP]
+> Below are commands when in Command Prompt
+> You should start an elevated Prompt using a local admin account
 
 ## NVIDIA DRIVERS ##
-Older versions of NVIDIA drivers does not work. Can test this by going to Youtube and try to play a video.
-`31.0.15.2727` `23/11/2022` is known to **not** work - which is in the IT Clean image
+> [!WARNING]
+> Older versions of NVIDIA drivers does not work. Can test this by going to Youtube and try to play a video.
+> `31.0.15.2727` `23/11/2022` is known to **not** work - which is the version supplied in the IT Clean image. 
+
+
+
 
 ## CHROME & SHORTCUTS ##
+> Download
+
 [https://google.com/chrome](https://google.com/chrome)
 
+> Install
+```
+start "" ChromeSetup.exe
+```
 
+> Shortcut to Radiology Intranet site in Chrome
+```
+powershell "$s=(New-Object -COM WScript.Shell).CreateShortcut('C:\Users\Public\Desktop\Radiology Intranet - Chrome.lnk');$s.WorkingDirectory='C:\Program Files\Google\Chrome\Application';$s.TargetPath='C:\Program Files\Google\Chrome\Application\chrome.exe';$s.Arguments='http://172.28.40.180';$s.Save()"
+```
+> Shortcut to Protocol App in Chrome
+```
+powershell "$s=(New-Object -COM WScript.Shell).CreateShortcut('C:\Users\Public\Desktop\Protocol App - Chrome.lnk');$s.WorkingDirectory='C:\Program Files\Google\Chrome\Application';$s.TargetPath='C:\Program Files\Google\Chrome\Application\chrome.exe';$s.Arguments='http://radorder:8080/protapp/prot.html';$s.Save()"
+```
+> Shortcut to Synapse 5 in Chrome (interuption workflow)
+```
+powershell "$s=(New-Object -COM WScript.Shell).CreateShortcut('C:\Users\Public\Desktop\Synapse5 - Chrome.lnk');$s.WorkingDirectory='C:\Program Files\Google\Chrome\Application';$s.TargetPath='C:\Program Files\Google\Chrome\Application\chrome.exe';$s.Arguments='http://rmh-synapse/synapse';$s.Save()"
+```
 
 ## KARISMA ##
+> Make a new folder for Karisma
+
 ```
-::make a new folder
 MD C:\Karisma
-::copy the necessary files over 
+```
+> Copy the app files over
+```
 COPY "\\mhkarisma\LIVE\KarismaConsole.exe" "C:\Karisma\KarismaConsole.exe" /Y
 COPY "\\mhkarisma\LIVE\KarismaConsole.map" "C:\Karisma\KarismaConsole.map" /Y
-::grant group 'Users' full access to Karisma folder so can write logs
+```
+> Grant group 'Users' full access to Karisma folder so can write logs
+
+```
 icacls "C:\Karisma" /grant:r "Users:(OI)(CI)(F)"
-::create shortcut in Public Desktop to Karisma
-powershell "$s=(New-Object -COM WScript.Shell).CreateShortcut('C:\Users\Public\Desktop\Karisma - Synapse v5.lnk');$s.TargetPath='C:\Karisma\KarismaConsole.exe';$s.Arguments='/server:mhkarisma /port:40100 /pacsclient:synapse5';$s.Save()"
 ```
 
+> Create shortcut in Public Desktop to Karisma
+```
+powershell "$s=(New-Object -COM WScript.Shell).CreateShortcut('C:\Users\Public\Desktop\Karisma - Synapse v5.lnk');$s.WorkingDirectory='C:\Karisma';$s.TargetPath='C:\Karisma\KarismaConsole.exe';$s.Arguments='/server:mhkarisma /port:40100 /pacsclient:synapse5';$s.Save()"
+```
+After installing you should log into Karisma to (1) **assign workstation license**, (2) download other files and (3) install **SpeechMagic**.
+
 ## SYNAPSE DESKTOP AGENT ##
-currently waiting for Fuji to confirm best practice deployment
+Currently waiting for Fuji to confirm best practice deployment.
+
 MSI can manually be downloaded from (must use Edge in IE mode):
 	[http://rmh-synapse/ex](http://rmh-synapse/ex)
-```
+``` 
 start "" SynapseWorkstationEx.msi
 ```
+
 
 ## NINJAPACS ##
 ```
 COPY "\\mhkarisma\Startup Scripts\NinjaPacs v0.997_x64.exe" "C:\Users\Public\Desktop\NinjaPacs v0.997_x64.exe" /Y
-::make startup shortcut to 
+```
+> Create shortcut to auto startup
+```
 powershell "$s=(New-Object -COM WScript.Shell).CreateShortcut('C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\NinjaPacs.lnk');$s.TargetPath='C:\Users\Public\Desktop\NinjaPacs v0.997_x64.exe';$s.Save()"
 ```
 
 ## SYNGO VIA ##
+> Must start the client installer first
 ```
-::start the client installer first
 start "" "\\mhkarisma\Startup Scripts\SyngoVia\syngo.via.Client.Setup@172.28.42.103.exe"
-::install the Enterprise Browser
+```
+> Then install the Enterprise Browser
+```
 start "" "\\mhkarisma\Startup Scripts\SyngoVia\rmhradentcon.ssg.org.au.msi"
-::cleanup the icons on the desktop
+```
+> Clean up the icons on the desktop (delete unused ones leaving only Enterprise Browser)
+```
 DEL "C:\Users\Public\Desktop\syngo.via - Server Selection.lnk"
 DEL "C:\Users\Public\Desktop\syngo.via - Single Sign On.lnk"
 DEL "C:\Users\Public\Desktop\syngo.via Client.lnk"
@@ -60,9 +102,22 @@ start "" "\\mhkarisma\Startup Scripts\DotNet\windowsdesktop-runtime-6.0.28-win-x
 ```
 
 ## PACSMENU ##
+> Copy app files over
 ```
-::copy files over
 XCOPY "\\mhkarisma\Startup Scripts\PACSMenu" "C:\PACSMenu" /Y /E /I /Q
-::grant group 'Users' full access to PACSMenu folder so can write settings
+```
+> Grant group 'Users' full access to PACSMenu folder so can write settings
+```
 icacls "C:\PACSMenu" /grant:r "Users:(OI)(CI)(F)"
 ```
+
+## DRAGON ##
+> Run the installer remotely
+```
+start "" "\\mhkarisma\Startup Scripts\Dragon\setup.exe"
+```
+> License key
+```
+more "\\mhkarisma\Startup Scripts\Dragon\Serial Number.txt"
+```
+
