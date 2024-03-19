@@ -11,8 +11,13 @@
 ## NVIDIA DRIVERS ##
 > [!WARNING]
 > Older versions of NVIDIA drivers does not work for browser hardware accelleration. Can test this by going to Youtube and try to play a video.
-> `31.0.15.2727` `23/11/2022` is known to **not** work - which is the version supplied in the IT Clean image. 
-
+> 
+> `31.0.15.2727` `23/11/2022` is known to **not** work - which is the version supplied in the IT Clean image.
+>
+> The version below is known to work:
+```
+"\\mhkarisma\Startup Scripts\NVIDIA Drivers\551.61-quadro-rtx-desktop-notebook-win10-win11-64bit-international-dch-whql.exe"
+```
 
 
 
